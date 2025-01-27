@@ -4,7 +4,7 @@ services:
     container_name: n8n
     restart: always
     ports:
-      - "5678:5678"  # Porta para o acesso do n8n local (não exposta para o público)
+      - "5678:5678"
     environment:
       - N8N_HOST=n8n.gmxindustrial.com.br
       - N8N_PORT=5678
@@ -14,6 +14,7 @@ services:
       - GENERIC_TIMEZONE=America/Sao_Paulo
     volumes:
       - /home/src/.n8n:/home/node/.n8n
+    user: "src:src"  # Adicionar a linha user para garantir que o contêiner use o usuário 'src'
 volumes:
   n8n_data:
     external: true
