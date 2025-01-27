@@ -25,9 +25,10 @@ services:
       - N8N_PUSH_BACKEND=websocket
       - N8N_PAYLOAD_SIZE_MAX=268435456
       - N8N_ENCRYPTION_KEY=rHrdmVuJuhUeA7JDKtkoqQfRZ9wd58lGPmz28JIUh1k=
-
     depends_on:
       - postgres  # Ensures PostgreSQL starts before n8n
+    volumes:
+      - /home/node/n8n_data:/home/node/.n8n
 
   postgres:
     restart: always
