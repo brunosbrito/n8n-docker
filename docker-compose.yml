@@ -1,0 +1,21 @@
+version: '3'
+services:
+  n8n:
+    image: n8n/n8n:latest
+    container_name: n8n
+    restart: always
+    ports:
+      - "5678:5678"  # Porta para o acesso do n8n local (não exposta para o público)
+    environment:
+      - GENERIC_TIMEZONE=America/Sao_Paulo
+      - DB_SQLITE_DATABASE=/data/database.sqlite  # Armazenamento do banco de dados SQLite
+    volumes:
+      - ./n8n-data:/data  # Persistência de dados
+    networks:
+      - n8n_network
+    environment:
+      - VUE_APP_URL_BASE_API=https://n8n.seudominio.com  # Substitua com o domínio configurado
+
+networks:
+  n8n_network:
+    driver: bridge
