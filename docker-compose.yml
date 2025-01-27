@@ -8,7 +8,7 @@ services:
     environment:
       - GENERIC_TIMEZONE=America/Sao_Paulo
       - DB_SQLITE_DATABASE=/data/database.sqlite  # Armazenamento do banco de dados SQLite
-      - VUE_APP_URL_BASE_API=https://n8n.seudominio.com  # Substitua com o domínio configurado
+      - VUE_APP_URL_BASE_API=https://n8n.gmxindustrial.com.br
     volumes:
       - ./n8n-data:/data  # Persistência de dados
     networks:
