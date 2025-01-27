@@ -1,19 +1,44 @@
+version: '3.8'  # Using a more recent version for better features
 services:
   n8n:
-    image: docker.n8n.io/n8nio/n8n
-    container_name: n8n
     restart: always
+    image: n8nio/n8n
     ports:
-      - "5678:5678"  # Porta para o acesso do n8n local (não exposta para o público)
+      - "5678:5678"
     environment:
+      - N8N_BASIC_AUTH_ACTIVE=true
+      - N8N_BASIC_AUTH_USER=admin
+      - N8N_BASIC_AUTH_PASSWORD=Digitalsegurogml2024!
       - N8N_HOST=n8n.gmxindustrial.com.br
-      - N8N_PORT=5678
       - N8N_PROTOCOL=https
-      - NODE_ENV=production
+      - WEBHOOK_TUNNEL_URL=https://n8n.gmxindustrial.com.br
       - WEBHOOK_URL=https://n8n.gmxindustrial.com.br
-      - GENERIC_TIMEZONE=America/Sao_Paulo
+      - N8N_EXTERNAL_URL=https://n8n.gmxindustrial.com.br
+      - DB_TYPE=postgresdb
+      - DB_POSTGRESDB_HOST=postgres
+      - DB_POSTGRESDB_DATABASE=n8n
+      - DB_POSTGRESDB_USER=n8n
+      - DB_POSTGRESDB_PASSWORD=Digitalsegurogml2024!
+      - EXECUTIONS_MODE=regular
+      - NODE_FUNCTION_ALLOW_EXTERNAL=nodemailer
+      - N8N_PUSH_BACKEND=websocket
+      - N8N_PAYLOAD_SIZE_MAX=268435456
+      - N8N_ENCRYPTION_KEY=rHrdmVuJuhUeA7JDKtkoqQfRZ9wd58lGPmz28JIUh1k=
+
+    depends_on:
+      - postgres  # Ensures PostgreSQL starts before n8n
     volumes:
-      - ./n8n_data:/home/node/.n8n
+      - ~/.n8n:/root/.n8n
+
+  postgres:
+    restart: always
+    image: postgres:latest
+    environment:
+      - POSTGRES_DB=n8n
+      - POSTGRES_USER=n8n
+      - POSTGRES_PASSWORD=Digitalsegurogml2024!
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  # Persist PostgreSQL data
+
 volumes:
-  n8n_data:
-    external: true
+  postgres_data:  # Define the volume for persisting database data
