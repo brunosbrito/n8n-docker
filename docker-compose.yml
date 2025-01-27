@@ -13,8 +13,8 @@ services:
       - WEBHOOK_URL=https://n8n.gmxindustrial.com.br
       - GENERIC_TIMEZONE=America/Sao_Paulo
     volumes:
-      - /home/src/.n8n:/home/node/.n8n
-    user: "src:src"  # Adicionar a linha user para garantir que o contêiner use o usuário 'src'
+      - ./n8n_data:/home/node/.n8n
+   
 volumes:
   n8n_data:
     external: true
