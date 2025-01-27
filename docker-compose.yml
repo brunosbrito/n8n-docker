@@ -6,14 +6,17 @@ services:
     ports:
       - "5678:5678"  # Porta para o acesso do n8n local (não exposta para o público)
     environment:
+      - N8N_HOST=n8n.gmxindustrial.com.br
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=https
+      - NODE_ENV=production
+      - WEBHOOK_URL=https://n8n.gmxindustrial.com.br
       - GENERIC_TIMEZONE=America/Sao_Paulo
-      - DB_SQLITE_DATABASE=/data/database.sqlite  # Armazenamento do banco de dados SQLite
-      - VUE_APP_URL_BASE_API=https://n8n.gmxindustrial.com.br
     volumes:
-      - ./n8n-data:/data  # Persistência de dados
+      - ./n8n_data:/home/node/.n8n
     networks:
       - n8n_network
 
-networks:
-  n8n_network:
-    driver: bridge
+volumes:
+  n8n_data:
+    external: true
