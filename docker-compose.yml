@@ -29,7 +29,8 @@ services:
     depends_on:
       - postgres  # Ensures PostgreSQL starts before n8n
     volumes:
-      - /root/.n8n:/root/.n8n
+      - /home/node/n8n_data:/home/node/.n8n
+
   postgres:
     restart: always
     image: postgres:latest
