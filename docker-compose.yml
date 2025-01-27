@@ -1,7 +1,6 @@
-version: '3'
 services:
   n8n:
-    image: n8n/n8n:latest
+    image: docker.n8n.io/n8nio/n8n
     container_name: n8n
     restart: always
     ports:
